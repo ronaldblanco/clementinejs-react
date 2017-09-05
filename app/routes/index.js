@@ -3,10 +3,12 @@
 var path = process.cwd();
 
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var DataHandler = require(path + '/app/controllers/dataHandler.server.js');
 
 module.exports = function (app, passport) {
     
     var clickHandler = new ClickHandler();
+    var dataHandler = new DataHandler();
 
     app.route('/')
         .get(function (req, res) {
@@ -38,4 +40,14 @@ module.exports = function (app, passport) {
         .get(clickHandler.getClicks)
         .post(clickHandler.addClick)
         .delete(clickHandler.resetClicks);
+        
+    app.route('/api/:id/info')
+		.get(dataHandler.getDatas);
+		
+	app.route('/api/:id/infoadd')
+		.post(dataHandler.addData);
+		
+	app.route('/api/:id/infodel')
+        .delete(dataHandler.deleteData);
+
 };
