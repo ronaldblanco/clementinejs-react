@@ -1,63 +1,62 @@
-// gulpfile provided from https://github.com/StephenGrider/ReactCasts/blob/master/todos/gulpfile.js
-
-var gulp = require('gulp');
 var source = require('vinyl-source-stream');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
 var browserify = require('browserify');
-var watchify = require('watchify');
 var reactify = require('reactify');
-var notifier = require('node-notifier');
+var watchify = require('watchify');
+var notify = require("gulp-notify");
 var livereload = require('gulp-livereload');
 
-var notify = function(error) {
-  var message = 'In: ';
-  var title = 'Error: ';
+var scriptsDir = './app/src';
+var buildDir = './public';
 
-  if(error.description) {
-    title += error.description;
-  } else if (error.message) {
-    title += error.message;
-  }
 
-  if(error.filename) {
-    var file = error.filename.split('/');
-    message += file[file.length-1];
-    console.log(message);
-  }
-
-  if(error.lineNumber) {
-    message += '\nOn Line: ' + error.lineNumber;
-  }
-
-  notifier.notify({title: title, message: message});
-};
-
-var bundler = watchify(browserify({
-  entries: ['./app/src/app.jsx'],
-  transform: [reactify],
-  extensions: ['.jsx'],
-  debug: true,
-  cache: {},
-  packageCache: {},
-  fullPaths: true
-}));
-
-function bundle() {
-  return bundler
-    .bundle()
-    .on('error', notify)
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('./public/'))
-    .pipe(livereload());
+function handleErrors() {
+  var args = Array.prototype.slice.call(arguments);
+  notify.onError({
+    title: "Compile Error",
+    message: "<%= error.message %>"
+  }).apply(this, args);
+  this.emit('end'); // Keep gulp from hanging on this task
 }
-bundler.on('update', bundle)
+
+
+// Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
+function buildScript(file, fileOut, watch) {
+  var props = {
+    entries: [scriptsDir + '/' + file], 
+    transform: [reactify],
+    extensions: ['.jsx'],
+    debug: true,
+    cache: {},
+    packageCache: {},
+    fullPaths: true
+  };
+  var bundler = watch ? watchify(props) : browserify(props);
+  bundler.transform(reactify);
+  function rebundle() {
+    var stream = bundler.bundle(/*{debug: true}*/);
+    return stream.on('error', handleErrors)
+    .pipe(source(fileOut))
+    .pipe(gulp.dest(buildDir + '/'));
+  }
+  bundler.on('update', function() {
+    rebundle();
+    gutil.log('Rebundle...');
+  });
+  return rebundle();
+}
+
 
 gulp.task('build', function() {
-  bundle()
+  return buildScript('App.jsx', 'main.js', false);
 });
 
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch('./app/src/**', ['build']);
+  gulp.watch('./app/src/**');
 });
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build'], function() {
+  return buildScript('App.jsx', 'main.js', true);
+});

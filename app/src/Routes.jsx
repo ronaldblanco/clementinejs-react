@@ -6,6 +6,7 @@ var Link = require('react-router').Link;
 
 var Login = require('./components/Login');
 var ClicksContainer = require('./components/ClicksContainer');
+var DatasContainer = require('./components/DatasContainer');
 var Main = require('./components/Main');
 var Profile = require('./components/Profile');
 
