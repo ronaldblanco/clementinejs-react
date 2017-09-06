@@ -6,6 +6,7 @@ var reactify = require('reactify');
 var watchify = require('watchify');
 var notify = require("gulp-notify");
 var livereload = require('gulp-livereload');
+var nodemon = require('gulp-nodemon')
 
 var scriptsDir = './app/src';
 var buildDir = './public';
@@ -53,9 +54,11 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', function() {
-  livereload.listen();
-  gulp.watch('./app/src/**');
-});
+  nodemon({
+    watch: ['app/**/*.js', 'app/**/*.jsx'],
+    exec: "node server.js"
+  })
+})
 
 gulp.task('default', ['build'], function() {
   return buildScript('App.jsx', 'main.js', true);
