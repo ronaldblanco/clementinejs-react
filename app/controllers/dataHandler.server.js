@@ -5,10 +5,10 @@ function DataHandler () {
 	
 	this.getDatas = function (req, res) {
 		Users
-			.findOne({ 'login.id': req.user.login.id }, { '_id': false })
+			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
 			.exec(function (err, result) {
 				if (err) { throw err; }
-
+				console.log(result.info);
 				res.json(result.info);
 			});
 	};
@@ -19,10 +19,10 @@ function DataHandler () {
 		
 		var newData = {'name': unescape(myUrl.query.params.name)};
 		Users
-			.findOneAndUpdate({ 'login.id': req.user.login.id }, { $push: { 'info.data': newData } })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $push: { 'info.data': newData } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
-
+					console.log(result.info)
 					res.json(result.info);
 				}
 			);		
@@ -33,7 +33,7 @@ function DataHandler () {
 		var myUrl = url.parse(req.originalUrl);
 		
 		Users
-			.findOneAndUpdate({ 'login.id': req.user.login.id }, { $pull: { 'info.data': { name:unescape(myUrl.query.params.name)} }  })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'info.data': { name:unescape(myUrl.query.params.name)} }  })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
