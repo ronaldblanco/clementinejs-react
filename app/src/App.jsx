@@ -34,7 +34,7 @@ var App = React.createClass({
         )        
       } else {
         return (
-          <div>Loading...</div>
+          <div>Loading....</div>
         )
       }
   }
