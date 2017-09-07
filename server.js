@@ -5,7 +5,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     session = require('express-session');
-    
+  
+var functions = require('./app/common/functions.server.js');
 
 var app = express();
 require('dotenv').load();
@@ -27,6 +28,13 @@ app.use(passport.session());
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
+
+//////////////////////////
+if (process.env.NODE_ENV === 'development'){
+    //Gulp build execution
+    functions.execute('gulp build');
+}
+/////////////////////////
 
 routes(app, passport);
 
