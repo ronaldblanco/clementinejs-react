@@ -1,5 +1,6 @@
 var React = require('react');
 var Btn = require('./Btn');
+var Li = require('./Li');
 var Header = require('./Header');
 
 var ajaxRequest = require('../ajax-functions');
@@ -48,24 +49,21 @@ module.exports = React.createClass({
 				<div className="btn-container">
 					<p>Here are your Data Names:</p>
 					<ul id="list">
-						<li>
-							<input type="radio" name="radioData" id="radioData" /><p>{this.state.data}</p>
-						</li>
+						<Li data={this.state.data}/>
 					</ul>
 				</div>
 			</div>			
 		);
 	},
 	handleAddData: function() {
-		var name = document.querySelector('#name');
-		var query = "?name=" + name.value;
+		var query = "?name=" + document.querySelector('#name').value;
 		ajaxRequest ('POST', apiUrldata + 'add' + query, function(data){
 			console.log(data);
 			this.setState({data: JSON.parse(data).data});
 		}.bind(this));		
 	},
 	handleDeleteData: function () {
-		var query = document.querySelector('input[name = "radioData"]:checked').value;
+		var query = "?name=" + document.querySelector('input[name = "radioData"]:checked').value;
 		ajaxRequest ('DELETE', apiUrldata + 'del' + query, function(data){
 			console.log(data);
 			this.setState({data: JSON.parse(data).data});

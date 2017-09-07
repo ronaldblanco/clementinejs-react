@@ -3,7 +3,9 @@ var React = require('react');
 module.exports = React.createClass({
 	render: function() {
 		return (
-		    <input type="radio" value="?name="{this.props.name} name="radioData" id="radioData" />
-		)
+		    <li>
+				<input type="radio" name="radioData" id="radioData" value={this.props.data} /><p>{this.props.data}</p>
+			</li>
+		);
 	} 
 });
