@@ -1,11 +1,35 @@
 var React = require('react');
+var Input = require('./Input');
 
 module.exports = React.createClass({
 	render: function() {
-		return (
-		    <li>
-				<input type="radio" name="radioData" id="radioData" value={this.props.data} /><p>{this.props.data}</p>
-			</li>
-		);
+		if (this.props.data != undefined){
+			//console.log(this.props.data);
+			//console.log(this.props.data.length);
+			var li = this.props.data.map(function(anObjectMapped, index) {
+				//console.log(anObjectMapped.name);
+    			return(
+    				<li>
+    					<Input index={index} name={anObjectMapped.name} />
+    				</li>
+    				); 
+			}.bind(this));
+			//console.log(li);
+			return(
+				<div>
+					<ul id="list">
+						{li}
+					</ul>
+				</div>
+				);
+			
+		} else {
+			return (
+				<div>
+		    		<li>
+					</li>
+				</div>
+				);
+		}
 	} 
 });

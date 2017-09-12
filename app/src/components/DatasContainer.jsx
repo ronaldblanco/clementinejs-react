@@ -17,9 +17,8 @@ module.exports = React.createClass({
 	},
 	componentWillMount: function () {
 		ajaxRequest ('GET', apiUrldata, function(data){
-			var len = JSON.parse(data).data.length - 1;
 			this.setState({
-				data: JSON.parse(data).data[len].name
+				data: JSON.parse(data).data
 			}); 
 		}.bind(this)),
 		ajaxRequest ('GET', apiUrl, function(data){
@@ -48,9 +47,9 @@ module.exports = React.createClass({
 	       		<br/>
 				<div className="btn-container">
 					<p>Here are your Data Names:</p>
-					<ul id="list">
-						<Li data={this.state.data}/>
-					</ul>
+					
+					<Li data={this.state.data}/>
+					
 				</div>
 			</div>			
 		);
@@ -58,16 +57,27 @@ module.exports = React.createClass({
 	handleAddData: function() {
 		var query = "?name=" + document.querySelector('#name').value;
 		ajaxRequest ('POST', apiUrldata + 'add' + query, function(data){
-			console.log(data);
-			this.setState({data: JSON.parse(data).data});
-		}.bind(this));		
+			console.log("Added "+ query);
+			//this.setState({data: JSON.parse(data).data});
+		}.bind(this));
+		ajaxRequest ('GET', apiUrldata, function(data){
+				this.setState({
+					data: JSON.parse(data).data
+				}); 
+		}.bind(this));
 	},
 	handleDeleteData: function () {
 		var query = "?name=" + document.querySelector('input[name = "radioData"]:checked').value;
 		ajaxRequest ('DELETE', apiUrldata + 'del' + query, function(data){
-			console.log(data);
-			this.setState({data: JSON.parse(data).data});
-		}.bind(this));			
+			console.log("Deleted "+ query);
+			//this.setState({data: JSON.parse(data).data});
+			//this.setState({data: JSON.parse(data).data});
+		}.bind(this));
+		ajaxRequest ('GET', apiUrldata, function(data){
+				this.setState({
+					data: JSON.parse(data).data
+				}); 
+		}.bind(this));
 	},
 	handleAddClick: function() {
 		ajaxRequest ('POST', apiUrl, function(data){
