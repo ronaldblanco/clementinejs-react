@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var Routes = require('./Routes');
 
 var ajax = require('./ajax-functions');
@@ -11,7 +10,7 @@ module.exports = React.createClass({
     return({
       user: undefined,
       response: false
-    })
+    });
   },
   componentDidMount: function() {
     if(!this.state.user){
@@ -19,28 +18,23 @@ module.exports = React.createClass({
         if (data != 'no user'){
           this.setState({
             user: JSON.parse(data)
-          })
+          });
         }
         this.setState({
           response: true
-        })
-      }.bind(this))	      
+        });
+      }.bind(this));      
     }
   },
   render: function() {
       if(this.state.response){
         return (
           <Routes user={this.state.user}/>
-        )        
+        );        
       } else {
         return (
           <div>Loading....</div>
-        )
+        );
       }
   }
-})
-
-/*ReactDOM.render(
-  <App/>,
-  document.getElementById('content')
-);*/
+});

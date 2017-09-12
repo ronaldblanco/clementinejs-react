@@ -56,7 +56,7 @@ gulp.task('build', function() {
 
 gulp.task('watch', function() {
   nodemon({
-    watch: ['app/**/*.js', 'app/src/App.jsx', 'app/src/Routes.jsx', 'app/src/components/*.*', 'gulpfile.js', 'server.js'],
+    watch: ['app/**/*.js', 'app/src/*.*', 'app/src/components/*.*', 'gulpfile.js', 'server.js'],
     exec: "node server.js"
   });
 });

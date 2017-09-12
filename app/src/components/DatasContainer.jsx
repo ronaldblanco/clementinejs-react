@@ -2,7 +2,6 @@ var React = require('react');
 var Btn = require('./Btn');
 var Li = require('./Li');
 var Header = require('./Header');
-//var ReactDOM = require('react-dom');
 
 var ajaxRequest = require('../ajax-functions');
 
@@ -59,7 +58,6 @@ module.exports = React.createClass({
 		var query = "?name=" + document.querySelector('#name').value;
 		ajaxRequest ('POST', apiUrldata + 'add' + query, function(data){
 			console.log("Added "+ query);
-			//this.setState({data: JSON.parse(data).data});
 		}.bind(this));
 		ajaxRequest ('GET', apiUrldata, function(data){
 				this.setState({
@@ -72,7 +70,6 @@ module.exports = React.createClass({
 		var query = "?name=" + document.querySelector('input[name = "radioData"]:checked').value;
 		ajaxRequest ('DELETE', apiUrldata + 'del' + query, function(data){
 			console.log("Deleted "+ query);
-			//this.setState({data: JSON.parse(data).data});
 		}.bind(this));
 		ajaxRequest ('GET', apiUrldata, function(data){
 				this.setState({
