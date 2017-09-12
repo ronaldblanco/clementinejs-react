@@ -4,7 +4,11 @@ var express = require('express'),
     routes = require('./app/routes/index.js'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    session = require('express-session');
+    session = require('express-session'),
+    compression = require('compression');
+
+var winston = require('winston');
+require('winston-daily-rotate-file');
   
 var functions = require('./app/common/functions.server.js');
 
@@ -33,8 +37,32 @@ app.set('views', './app/views');
 if (process.env.NODE_ENV === 'development'){
     //Gulp build execution
     functions.execute('gulp build');
+    /////////////////////////////////////////////
+    //CHECK FOLDER LOG AND CREATE IT////////////////////////////////////
+    functions.ensureExists(__dirname + '/log', '0744', function(err) {
+        if (err) console.error(err);
+        else console.log('Folder Log was created or existed');
+    });
+    //////////////////////////////////////////////////
+
+    //LOGGER//////////////////////////////////////////
+    var logger = new (winston.Logger)({
+        transports: [
+        functions.transport
+        ]
+    });
+    functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
+/////////////////////////////////////////////////
 }
 /////////////////////////
+
+//Forzing Cache of static/////////////////////////
+app.use(functions.cacheIt);
+/////////////////////////////////////////////////
+
+//COMPRESSION////////////////////////////////////
+app.use(compression({filter: functions.shouldCompress}));
+/////////////////////////////////////////////////
 
 routes(app, passport);
 
