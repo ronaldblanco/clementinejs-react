@@ -2,6 +2,7 @@ var React = require('react');
 var Btn = require('./Btn');
 var Li = require('./Li');
 var Header = require('./Header');
+//var ReactDOM = require('react-dom');
 
 var ajaxRequest = require('../ajax-functions');
 
@@ -40,16 +41,16 @@ module.exports = React.createClass({
 				<br/>
 				<br/>
 				<div className="btn-container">
-					New Data Name:<input type="text" name="name" id="name" class="form-control" placeholder="Name"/><br/>
+					New Data Name:<input type="text" name="name" id="name" className="form-control" placeholder="Name"/><br/>
             		<Btn className="btn-add" onClick={this.handleAddData} text="New Data!" />
 					<Btn className="btn-delete" onClick={this.handleDeleteData} text="Del Data!" />
 	       		</div>
 	       		<br/>
 				<div className="btn-container">
 					<p>Here are your Data Names:</p>
-					
-					<Li data={this.state.data}/>
-					
+					<div id="li">
+						<Li data={this.state.data}/>
+					</div>
 				</div>
 			</div>			
 		);
@@ -65,12 +66,12 @@ module.exports = React.createClass({
 					data: JSON.parse(data).data
 				}); 
 		}.bind(this));
+		this.render;
 	},
 	handleDeleteData: function () {
 		var query = "?name=" + document.querySelector('input[name = "radioData"]:checked').value;
 		ajaxRequest ('DELETE', apiUrldata + 'del' + query, function(data){
 			console.log("Deleted "+ query);
-			//this.setState({data: JSON.parse(data).data});
 			//this.setState({data: JSON.parse(data).data});
 		}.bind(this));
 		ajaxRequest ('GET', apiUrldata, function(data){
@@ -78,6 +79,7 @@ module.exports = React.createClass({
 					data: JSON.parse(data).data
 				}); 
 		}.bind(this));
+		this.render;
 	},
 	handleAddClick: function() {
 		ajaxRequest ('POST', apiUrl, function(data){

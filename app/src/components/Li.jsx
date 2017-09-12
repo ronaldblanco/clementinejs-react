@@ -9,7 +9,7 @@ module.exports = React.createClass({
 			var li = this.props.data.map(function(anObjectMapped, index) {
 				//console.log(anObjectMapped.name);
     			return(
-    				<li>
+    				<li key={index}>
     					<Input index={index} name={anObjectMapped.name} />
     				</li>
     				); 
@@ -26,8 +26,10 @@ module.exports = React.createClass({
 		} else {
 			return (
 				<div>
-		    		<li>
-					</li>
+					<ul id="list">
+		    			<li>
+						</li>
+					</ul>
 				</div>
 				);
 		}

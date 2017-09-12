@@ -6,7 +6,7 @@ var ajax = require('./ajax-functions');
 var appUrl = window.location.origin;
 var apiUrl = appUrl + '/api/:id';
 
-module.exports = React.createClass({
+var App = React.createClass({
   getInitialState: function() {
     return({
       user: undefined,
@@ -40,7 +40,7 @@ module.exports = React.createClass({
   }
 })
 
-/*ReactDOM.render(
+ReactDOM.render(
   <App/>,
   document.getElementById('content')
-);*/
+);

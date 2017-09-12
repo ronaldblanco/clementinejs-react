@@ -50,7 +50,8 @@ function buildScript(file, fileOut, watch) {
 
 
 gulp.task('build', function() {
-  return buildScript('App.jsx', 'main.js', false);
+  //return buildScript('App.jsx', 'main.js', false);
+  return buildScript('Main.jsx', 'main.js', false);
 });
 
 gulp.task('watch', function() {
