@@ -4,7 +4,8 @@ module.exports = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<input type="radio" name="radioData" id={this.props.index} value={this.props.name} /><p>{this.props.name}</p>
+				<p>{this.props.name}</p>
+				<input type="radio" name="radioData" id={this.props.index} value={this.props.name} />
 			</div>
 		);
 	} 

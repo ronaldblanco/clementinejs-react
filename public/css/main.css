@@ -186,3 +186,14 @@ span {
     display: inline;
     margin: 0;
 }
+
+.myinput {
+    width: 100%
+}
+
+.myinput14 {
+    width: 25%;
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 50px;
+}
