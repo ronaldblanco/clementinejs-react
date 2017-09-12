@@ -4,6 +4,7 @@ var express = require('express'),
     routes = require('./app/routes/index.js'),
     mongoose = require('mongoose'),
     passport = require('passport'),
+    passportTwitter = require('passport'),
     session = require('express-session'),
     compression = require('compression');
 
@@ -15,6 +16,8 @@ var functions = require('./app/common/functions.server.js');
 var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
+require('./app/config/passport-twitter')(passportTwitter);
+//require('./app/config/passport-local')(passportLocal);
 
 mongoose.connect(process.env.MONGO_URI);
 app.use('/js', express.static(process.cwd() + '/app/js'));
@@ -64,7 +67,7 @@ app.use(functions.cacheIt);
 app.use(compression({filter: functions.shouldCompress}));
 /////////////////////////////////////////////////
 
-routes(app, passport);
+routes(app, passport, passportTwitter);
 
 var port = 8080;
 app.listen(process.env.PORT || port, function () {

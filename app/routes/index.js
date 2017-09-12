@@ -5,7 +5,7 @@ var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var DataHandler = require(path + '/app/controllers/dataHandler.server.js');
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, passportTwitter) {
     
     var clickHandler = new ClickHandler();
     var dataHandler = new DataHandler();
@@ -32,6 +32,15 @@ module.exports = function (app, passport) {
         
     app.route('/auth/github/callback')
         .get(passport.authenticate('github', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+        }));
+        
+    app.route('/auth/twitter')
+        .get(passportTwitter.authenticate('twitter'));
+    
+    app.route('/auth/twitter/callback')
+        .get(passportTwitter.authenticate('twitter', {
         successRedirect: '/',
         failureRedirect: '/login'
         }));
