@@ -8,7 +8,9 @@ var User = new Schema({
         id: String,
         displayName: String,
         username: String,
-        publicRepos: Number
+        publicRepos: Number,
+        password: String,
+        email: String
     },
    nbrClicks: {
       clicks: Number

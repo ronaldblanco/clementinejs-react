@@ -4,11 +4,13 @@ var path = process.cwd();
 
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var DataHandler = require(path + '/app/controllers/dataHandler.server.js');
+var UserHandler = require(path + '/app/controllers/userHandler.server.js');
 
-module.exports = function (app, passport, passportTwitter) {
+module.exports = function (app, passport, passportTwitter, passportLocal, emailServer) {
     
     var clickHandler = new ClickHandler();
     var dataHandler = new DataHandler();
+    var userHandler = new UserHandler(emailServer);
 
     app.route('/')
         .get(function (req, res) {
@@ -58,5 +60,38 @@ module.exports = function (app, passport, passportTwitter) {
 		
 	app.route('/api/:id/infodel')
         .delete(dataHandler.deleteData);
+        
+    /////////////////////////////////////////////////////////////////	
+	app.route('/authlocal')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/loginlocal.html');
+		});
+		
+	app.route('/auth/local') 
+		.get(passportLocal.authenticate('local', { 
+			failureRedirect: '/authlocal' }),
+		function(req, res) {
+    		res.redirect('/');
+		})
+		.post(passportLocal.authenticate('local', { 
+			failureRedirect: '/authlocal' }),
+		function(req, res) {
+    		res.redirect('/');
+		});
+		
+	app.route('/auth/localnew')
+		.post(userHandler.addUser);
+		
+	app.route('/auth/localnewreset')
+		.post(userHandler.resetPass);
+		
+	app.route('/auth/localnewmessage')
+		.get(userHandler.message);
+	
+	app.route('/auth/localnewok')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/usercreationOK.html');
+		});
+/////////////////////////////////////////////////////////////////
 
 };

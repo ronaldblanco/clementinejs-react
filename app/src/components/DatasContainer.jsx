@@ -70,6 +70,7 @@ module.exports = React.createClass({
 		var query = "?name=" + document.querySelector('input[name = "radioData"]:checked').value;
 		ajaxRequest ('DELETE', apiUrldata + 'del' + query, function(data){
 			console.log("Deleted "+ query);
+			this.setState({data: JSON.parse(data).data}); 
 		}.bind(this));
 		ajaxRequest ('GET', apiUrldata, function(data){
 				this.setState({

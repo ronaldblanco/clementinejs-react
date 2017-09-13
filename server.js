@@ -5,6 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     passportTwitter = require('passport'),
+    passportLocal = require('passport'),
     session = require('express-session'),
     compression = require('compression');
 
@@ -17,12 +18,28 @@ var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
 require('./app/config/passport-twitter')(passportTwitter);
-//require('./app/config/passport-local')(passportLocal);
+require('./app/config/passport-local')(passportLocal);
 
 mongoose.connect(process.env.MONGO_URI);
+
+/////EMAIL CONFIG////////////////////////////////////////////////////////////////////////////
+app.use('/emailjs', express.static(process.cwd() + '/node_modules/emailjs'));
+var emailServer = {
+    'user' : process.env.EMAILUSER,
+    'password' : process.env.EMAILPASS,
+    'host' : process.env.EMAILHOST,
+    'port' : process.env.EMAILPORT
+};
+////////////////////////////////////////////////////////////////////////////////////
+
 app.use('/js', express.static(process.cwd() + '/app/js'));
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
+
+//////////////////////////////////////////////
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+//////////////////////////////////////////////
 
 app.use(session({
     secret: 'secretClementine',
@@ -67,7 +84,7 @@ app.use(functions.cacheIt);
 app.use(compression({filter: functions.shouldCompress}));
 /////////////////////////////////////////////////
 
-routes(app, passport, passportTwitter);
+routes(app, passport, passportTwitter, passportLocal, emailServer);
 
 var port = 8080;
 app.listen(process.env.PORT || port, function () {
