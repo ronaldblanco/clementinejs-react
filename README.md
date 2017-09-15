@@ -7,8 +7,10 @@
 The pnald version of Clementine FCC combined with https://github.com/jondcoleman/clementine-react<br>
 With a "gulp build" fix<br>
 To Start:<br>
-gulp (Build and run)<br>
+gulp (Build and run production)<br>
 gulp build (Build only)<br>
+gulp check (check jsx and js)<br>
+gulp development (check, build and watch)<br>
 
 The pnald version is a personalized version of Clementine.js FCC with a couple improvements:<br>
 Added Jquery<br>

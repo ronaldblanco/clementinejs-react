@@ -1,13 +1,14 @@
 {
-  "name": "votingapp",
+  "name": "Clementinejs-pnald-react",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "gulp check",
+    "start": "gulp",
+    "heroku-postbuild": "gulp build"
   },
-  "author": "",
+  "author": "Ronald Blanco",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.1",
@@ -18,6 +19,8 @@
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "fs": "0.0.1-security",
+    "gulp-jsvalidate": "^3.0.0",
+    "gulp-jsxcs": "^0.1.9",
     "gulp-nodemon": "^2.2.1",
     "gulp-notify": "^3.0.0",
     "history": "^1.15.0",

@@ -7,6 +7,8 @@ var watchify = require('watchify');
 var notify = require("gulp-notify");
 //var livereload = require('gulp-livereload');
 var nodemon = require('gulp-nodemon');
+var jsxcs = require('gulp-jsxcs');
+var jsValidate = require('gulp-jsvalidate');
 
 var scriptsDir = './app/src';
 var buildDir = './public';
@@ -48,17 +50,45 @@ function buildScript(file, fileOut, watch) {
   return rebundle();
 }
 
+gulp.task('check-jsx', function () {
+    return gulp.src('app/src/**/*.*')
+        .pipe(jsxcs({
+            disallowTrailingComma: true,
+            validateQuoteMarks: {
+                escape: true,
+                mark: '\''
+            }
+        }));
+});
+
+gulp.task('check-js', function(){
+    gulp.src('app/**/*.js')
+        .pipe(jsValidate());
+});
 
 gulp.task('build', function() {
   //return buildScript('App.jsx', 'main.js', false);
   return buildScript('Main.jsx', 'main.js', false);
 });
 
-gulp.task('watch', function() {
+gulp.task('watch-dev', function() {
   nodemon({
     watch: ['app/**/*.js', 'app/src/*.*', 'app/src/components/*.*', 'gulpfile.js', 'server.js'],
     exec: "node server.js"
   });
 });
 
-gulp.task('default', ['build', 'watch'], function() {});
+gulp.task('watch-pro', function() {
+  nodemon({
+    watch: ['server.js'],
+    exec: "node server.js"
+  });
+});
+
+gulp.task('check', ['check-jsx', 'check-js'], function() {});
+
+gulp.task('development', ['check', 'build', 'watch-dev'], function() {});
+
+gulp.task('production', ['build', 'watch-pro'], function() {});
+
+gulp.task('default', ['build', 'watch-pro'], function() {});
