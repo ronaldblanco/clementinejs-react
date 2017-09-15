@@ -8,6 +8,7 @@ var apiUrl = appUrl + '/api/:id';
 module.exports = React.createClass({
   getInitialState: function() {
     return({
+      //local: false,
       user: undefined,
       response: false
     });

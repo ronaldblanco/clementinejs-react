@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 module.exports = React.createClass({
 	render: function() {
@@ -20,12 +21,7 @@ module.exports = React.createClass({
 						<p>LOGIN WITH TWITTER</p>
 					</div>
 				</a>
-				<a href="/authlocal">
-					<div className="btn" id="login-btn">
-						<img src="/public/img/local.png" width="32px" height="32px" alt="local logo" />
-						<p>LOGIN LOCAL</p>
-					</div>
-				</a>
+				<Link className="btn" to={"/LocalLogin"}>Local Login</Link>
 				</div>
 			</div>
 		);

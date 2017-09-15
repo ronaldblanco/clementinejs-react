@@ -9,6 +9,9 @@ var ClicksContainer = require('./components/ClicksContainer');
 var DatasContainer = require('./components/DatasContainer');
 var Main = require('./components/Main');
 var Profile = require('./components/Profile');
+var AuthLocal = require('./components/AuthLocal');
+var CreateLocal = require('./components/CreateLocal');
+var ResetLocal = require('./components/ResetLocal');
 
 module.exports = React.createClass({
 	requireLogin: function (nextState, replaceState) {
@@ -24,6 +27,9 @@ module.exports = React.createClass({
 					<Route path="/Profile" component={Profile} user={this.props.user}/>
 				</Route>
 				<Route path="/Login" component={Login}/>
+				<Route path="/LocalLogin" component={AuthLocal}/>
+				<Route path="/LocalCreate" component={CreateLocal}/>
+				<Route path="/LocalReset" component={ResetLocal}/>
 			</Router>
 		)			
 	}
