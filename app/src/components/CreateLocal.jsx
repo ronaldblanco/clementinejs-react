@@ -4,19 +4,22 @@ var Link = require('react-router').Link;
 module.exports = React.createClass({
 	render: function() {
 		return (
-			<div>
+			<div className="container">
+				<div className="" id="message"></div>
+			
 				<div>
 					<img src="/public/img/clementine_150.png" />
 					<br />
-					<p class="clementine-text">Clementine.js</p>
-					<Link className="menu" to={"/LocalLogin"}>Login Local User</Link>
-					<Link className="menu" to={"/LocalReset"}>Reset Local Password</Link>
+					<p className="clementine-text">Clementine.js</p>
+					<Link className="menu" className="btn" id="login-btn" to={"/LocalLogin"}>Login Local User</Link>
+					<Link className="menu" className="btn" id="login-btn" to={"/LocalReset"}>Reset Local Password</Link>
 					<Link className="menu" to={"/login"}>Return to Login Page</Link>
 				</div>
+				<div className="alert alert-warning"><h5>A Valid Email as your username is necesary for the reset password option!</h5></div>
 				<div>
 					<form action="/auth/localnew" method="post">	
 					<h3>CREATE LOCAL USER</h3>	
-					<div class="form-group">	
+					<div className="form-group">	
 						<div>	
 						<label>Username:</label>	
 						<input type="text" name="username"className="form-control" placeholder="Username or Email"/>
@@ -26,7 +29,7 @@ module.exports = React.createClass({
 						<input type="password" name="password" className="form-control" placeholder="Password"/>	
 						</div>	
 					</div>	<br/>	
-					<div class="form-group">	
+					<div className="form-group">	
 						<div>	
 						<input type="submit" className="btn btn-primary" value="Submit"/>	
 						</div>	

@@ -62,10 +62,10 @@ module.exports = function (app, passport, passportTwitter, passportLocal, emailS
         .delete(dataHandler.deleteData);
         
     /////////////////////////////////////////////////////////////////
-    app.route('/authlocal')
+    /*app.route('/authlocal')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/loginlocal.html');
-		});
+		});*/
 		
 	app.route('/auth/local') 
 		.get(passportLocal.authenticate('local', { 

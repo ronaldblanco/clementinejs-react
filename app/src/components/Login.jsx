@@ -21,7 +21,7 @@ module.exports = React.createClass({
 						<p>LOGIN WITH TWITTER</p>
 					</div>
 				</a>
-				<Link className="btn" to={"/LocalLogin"}>Local Login</Link>
+				<Link className="btn" id="login-btn" to={"/LocalLogin"}><img src="/public/img/local.png" alt="twitter logo" width="32px" />LOCAL LOGIN</Link>
 				</div>
 			</div>
 		);

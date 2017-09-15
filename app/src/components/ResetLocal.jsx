@@ -15,35 +15,36 @@ function updateMess (data){
 module.exports = React.createClass({
 	render: function() {
 		return (
-			<div>
+			<div className="container">
 				<div>
-					<div class="" id="message"></div>
+					<div className="" id="message"></div>
 					
 					<img src="/public/img/clementine_150.png" />
 					<br />
-					<p class="clementine-text">Clementine.js</p>
-					<Link className="menu" to={"/LocalLogin"}>Login Local User</Link>
-					<Link className="menu" to={"/LocalCreate"}>Create Local User</Link>
+					<p className="clementine-text">Clementine.js</p>
+					<Link className="menu" className="btn" id="login-btn" to={"/LocalLogin"}>Login Local User</Link>
+					<Link className="menu" className="btn" id="login-btn" to={"/LocalCreate"}>Create Local User</Link>
 					<Link className="menu" to={"/login"}>Return to Login Page</Link>
 				</div>
+				
 				<div>
-					<p>Only valid if your username is a valid email!</p><br/> 
-					Username:<input type="text" name="name" id="resetusername" className="form-control" placeholder="Email" />
+					<div className="alert alert-warning"><h5>Only valid if your username is a valid email!</h5></div><br/> 
+					<label>Username:</label><input type="text" name="name" id="resetusername" className="form-control" placeholder="Email" />
 					<br/>  
 					<btn type="submit" onClick={this.resetAction} className="btn btn-add btn-primary" id ="resetaction"
-					text="Reset!"/>
+					text="Reset!">Submit</btn>
 				</div>
 			</div>
 		);
 	},
 	resetAction: function(){
 		message = document.querySelector('#message');
-		document.querySelector('#resetaction').addEventListener('click', function(){
+		//document.querySelector('#resetaction').addEventListener('click', function(){
             var resetUsername = document.querySelector('#resetusername').value;
             ajaxRequest('POST', apiUrl + 'reset?name=' + resetUsername, function () {
                ajaxRequest('GET', apiUrl+'message', updateMess);
               
             });
-         });
+         //});
 	}
 });
