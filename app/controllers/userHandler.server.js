@@ -44,9 +44,9 @@ function UserHandler (emailServer) {
 	});
 
     this.addUser = function (req, res) {//Add Local user
-    
+    	//console.log(req.body);
     	Users
-			.findOne({ 'login.username': req.body.username/*, 'login.password': md5Hex(req.body.password) */}, { '_id': false })
+			.findOne({ 'github.username': req.body.username/*, 'login.password': md5Hex(req.body.password) */}, { '_id': false })
 			.exec(function (err, result) {
 				if (err) { throw err; }
 				
@@ -54,12 +54,12 @@ function UserHandler (emailServer) {
 				
 					var newUser = new Users();
 					
-					newUser.login.username = req.body.username;
+					newUser.github.username = req.body.username;
 					var email = validateEmail(req.body.username);
-					if(email != false) newUser.login.email = email;
-					newUser.login.password = md5Hex(req.body.password);
-					newUser.login.id = randomize('0', 7);
-					newUser.login.displayName = req.body.display;
+					if(email != false) newUser.github.email = email;
+					newUser.github.password = md5Hex(req.body.password);
+					newUser.github.id = randomize('0', 7);
+					newUser.github.displayName = req.body.display;
 					//console.log(req.body);
 					newUser.save(function (err) {
 						if (err) {
@@ -85,6 +85,7 @@ function UserHandler (emailServer) {
 						message.type = "alert alert-success";
 						//res.send({});
 						res.redirect('/auth/localnewok');
+						//res.redirect('/LocalOk');
 					});	
 		
 				} else{
@@ -93,6 +94,7 @@ function UserHandler (emailServer) {
 					message.type = "alert alert-info";
 					//res.send({});
 					res.redirect('/auth/localnewok');
+					//res.redirect('/LocalOk');
 				} 
 			});
  
@@ -107,7 +109,7 @@ function UserHandler (emailServer) {
 		if(email != false){
     	
     	Users
-			.findOneAndUpdate({ 'login.username': username}, { 'login.password': md5Hex(newPass) })
+			.findOneAndUpdate({ 'github.username': username}, { 'github.password': md5Hex(newPass) })
 			.exec(function (err, result) {
 				if (err) { throw err; }
 				

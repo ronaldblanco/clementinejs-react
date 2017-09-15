@@ -1,8 +1,9 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var apiUrl = window.location.origin + '/auth/localnew';
-var message = document.querySelector('#message') || null;
 var ajaxRequest = require('../ajax-functions');
+
+var message = document.querySelector('#message') || null;
 
 function updateMess (data){
       var info = JSON.parse(data);
@@ -16,6 +17,8 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<div>
+					<div class="" id="message"></div>
+					
 					<img src="/public/img/clementine_150.png" />
 					<br />
 					<p class="clementine-text">Clementine.js</p>
@@ -34,6 +37,7 @@ module.exports = React.createClass({
 		);
 	},
 	resetAction: function(){
+		message = document.querySelector('#message');
 		document.querySelector('#resetaction').addEventListener('click', function(){
             var resetUsername = document.querySelector('#resetusername').value;
             ajaxRequest('POST', apiUrl + 'reset?name=' + resetUsername, function () {

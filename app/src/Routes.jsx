@@ -12,6 +12,7 @@ var Profile = require('./components/Profile');
 var AuthLocal = require('./components/AuthLocal');
 var CreateLocal = require('./components/CreateLocal');
 var ResetLocal = require('./components/ResetLocal');
+var CreationOkLocal = require('./components/CreationOkLocal');
 
 module.exports = React.createClass({
 	requireLogin: function (nextState, replaceState) {
@@ -30,6 +31,7 @@ module.exports = React.createClass({
 				<Route path="/LocalLogin" component={AuthLocal}/>
 				<Route path="/LocalCreate" component={CreateLocal}/>
 				<Route path="/LocalReset" component={ResetLocal}/>
+				<Route path="/LocalOk" component={CreationOkLocal}/>
 			</Router>
 		)			
 	}
