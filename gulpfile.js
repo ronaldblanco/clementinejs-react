@@ -80,7 +80,7 @@ gulp.task('watch-dev', function() {
 
 gulp.task('watch-pro', function() {
   nodemon({
-    watch: ['server.js'],
+    watch: ['s.js'],
     exec: "node server.js"
   });
 });
