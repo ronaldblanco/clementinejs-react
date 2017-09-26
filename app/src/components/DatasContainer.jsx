@@ -30,28 +30,36 @@ module.exports = React.createClass({
 	render: function() {
 		return (
 			<div className="container">
+			<div className="w3-row-padding">
 				<Header />
-				<p>You have clicked the button {this.state.clicks} times.</p>   
-				<br />
-				<div className="btn-container">
-					<Btn className="btn-add" onClick={this.handleAddClick} text="CLICK ME!" />
-					<Btn className="btn-delete" onClick={this.handleDeleteClick} text="RESET" />
-				</div>
-				<br/>
-				<br/>
-				<div className="btn-container">
-					New Data Name:<input type="text" name="name" id="name" className="form-control" placeholder="Name"/><br/>
-            		<Btn className="btn-add" onClick={this.handleAddData} text="New Data!" />
-					<Btn className="btn-delete" onClick={this.handleDeleteData} text="Del Data!" />
-	       		</div>
-	       		<br/>
-				<div className="btn-container">
-					<p>Here are your Data Names:</p>
-					<div id="li">
-						<Li data={this.state.data}/>
+				<div className="w3-third">
+					<p>You have clicked the button {this.state.clicks} times.</p>   
+					<br />
+					<div className="btn-container">
+						<Btn className="btn-add" onClick={this.handleAddClick} text="CLICK ME!" />
+						<Btn className="btn-delete" onClick={this.handleDeleteClick} text="RESET" />
 					</div>
 				</div>
-			</div>			
+				<br/>
+				<br/>
+				<div className="w3-third">
+					<div className="btn-container">
+						New Data Name:<input type="text" name="name" id="name" className="form-control" placeholder="Name"/><br/>
+            			<Btn className="btn-add" onClick={this.handleAddData} text="New Data!" />
+						<Btn className="btn-delete" onClick={this.handleDeleteData} text="Del Data!" />
+	       			</div>
+	       		</div>
+	       		<br/>
+	       		<div className="w3-third">
+					<div className="btn-container">
+						<p>Here are your Data Names:</p>
+						<div id="li">
+							<Li data={this.state.data}/>
+						</div>
+					</div>
+				</div>
+			</div>	
+			</div>
 		);
 	},
 	handleAddData: function() {
