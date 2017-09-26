@@ -8,14 +8,14 @@ var UserHandler = require(path + '/app/controllers/userHandler.server.js');
 
 module.exports = function (app, passport, passportTwitter, passportLocal, emailServer) {
     
-    var clickHandler = new ClickHandler();
-    var dataHandler = new DataHandler();
-    var userHandler = new UserHandler(emailServer);
+  var clickHandler = new ClickHandler();
+  var dataHandler = new DataHandler();
+  var userHandler = new UserHandler(emailServer);
 
     app.route('/')
         .get(function (req, res) {
             res.sendFile(path + '/public/index.html');
-        });
+    });
         
     app.route('/logout')
         .get(function (req, res) {

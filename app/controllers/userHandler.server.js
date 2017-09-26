@@ -56,7 +56,7 @@ function UserHandler (emailServer) {
 					
 					newUser.github.username = req.body.username;
 					var email = validateEmail(req.body.username);
-					if(email != false) newUser.github.email = email;
+					if(email != false) {newUser.github.email = email;}
 					newUser.github.password = md5Hex(req.body.password);
 					newUser.github.id = randomize('0', 7);
 					newUser.github.displayName = req.body.display;

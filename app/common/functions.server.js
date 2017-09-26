@@ -1,25 +1,25 @@
 var fs = require('fs');
 var compression = require('compression');
 var winston = require('winston');
-  require('winston-daily-rotate-file');
+require('winston-daily-rotate-file');
 var rimraf = require('rimraf');
 var exec = require('child_process');
 
 //LOGGER///////////////////////////////////////////
 var transport= new winston.transports.DailyRotateFile({
-    filename: './log/log',
-    datePattern: 'yyyy-MM-dd.',
-    prepend: true,
-    level: process.env.NODE_ENV === 'development' ? 'debug' : 'info'
-  });
+  filename: './log/log',
+  datePattern: 'yyyy-MM-dd.',
+  prepend: true,
+  level: process.env.NODE_ENV === 'development' ? 'debug' : 'info'
+});
 var logger = new (winston.Logger)({
-    transports: [
-      transport
-    ]
-  });
+  transports: [
+    transport
+  ]
+});
 function logIt (logger, info){
   'use strict';
-    logger.info(info);
+   logger.info(info);
 }
 //functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
 /////////////////////////////////////////////////
@@ -36,7 +36,7 @@ module.exports = {
       // the *entire* stdout and stderr (buffered)
       console.log(cmd + ' was execute!');
       //console.log('stdout: ' + stdout);
-      if(stderr) console.log('stderr: ' + stderr);
+      if(stderr) {console.log('stderr: ' + stderr);}
     });
   },
   
@@ -51,7 +51,7 @@ module.exports = {
     if (process.env.NODE_ENV === 'development'){
       logIt(logger,req.url);
       cache = '0';
-    } else if (process.env.NODE_ENV === 'production') cache = '3600';
+    } else if (process.env.NODE_ENV === 'production') {cache = '3600';}
     //console.log(req.url);
     //if (req.url.match(/^\/(css|js|img|font|png|map)\/.+/)) {
         //res.set('Cache-Control', 'public, max-age=3600');
@@ -82,9 +82,9 @@ module.exports = {
     }
     fs.mkdir(path, mask, function(err) {
         if (err) {
-            if (err.code == 'EEXIST') cb(null); // ignore the error if the folder already exists
-            else cb(err); // something else went wrong
-        } else cb(null); // successfully created folder
+            if (err.code == 'EEXIST') {cb(null);} // ignore the error if the folder already exists
+            else {cb(err);} // something else went wrong
+        } else {cb(null);} // successfully created folder
     });
   },
   
@@ -92,9 +92,9 @@ module.exports = {
     'use strict';
     rimraf(path, function(err) {
         if (err) {
-            if (err.code == 'EEXIST') cb(null); // ignore the error if the folder already exists
-            else cb(err); // something else went wrong
-        } else cb(null); // successfully created folder
+            if (err.code == 'EEXIST') {cb(null);} // ignore the error if the folder already exists
+            else {cb(err);} // something else went wrong
+        } else {cb(null);} // successfully created folder
     });
   },
   
