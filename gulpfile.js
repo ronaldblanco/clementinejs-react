@@ -10,6 +10,8 @@ var nodemon = require('gulp-nodemon');
 var jsxcs = require('gulp-jsxcs');
 var jsValidate = require('gulp-jsvalidate');
 var eslint = require('gulp-eslint');
+var uglify = require('gulp-uglify');
+var pump = require('pump');
 
 var scriptsDir = './app/src';
 var buildDir = './public';
@@ -103,10 +105,20 @@ gulp.task('lint', () => {
         .pipe(eslint.failAfterError());
 });
 
+gulp.task('compress', function (cb) {
+  pump([
+        gulp.src('public/main.js'),
+        uglify(),
+        gulp.dest('public/min')
+    ],
+    cb
+  );
+});
+
 gulp.task('check', ['lint', 'check-jsx', 'check-js'], function() {});
 
-gulp.task('development', ['check', 'build', 'watch-dev'], function() {});
+gulp.task('development', ['check', 'build', 'compress', 'watch-dev'], function() {});
 
-gulp.task('production', ['build', 'watch-pro'], function() {});
+gulp.task('production', ['build', 'compress', 'watch-pro'], function() {});
 
-gulp.task('default', ['build', 'watch-pro'], function() {});
+gulp.task('default', ['production'], function() {});
