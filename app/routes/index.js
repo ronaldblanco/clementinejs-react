@@ -69,12 +69,12 @@ module.exports = function (app, passport, passportTwitter, passportLocal, emailS
 		
 	app.route('/auth/local') 
 		.get(passportLocal.authenticate('local', { 
-			failureRedirect: '/authlocal' }),
+			failureRedirect: '/' }),
 		function(req, res) {
     		res.redirect('/');
 		})
 		.post(passportLocal.authenticate('local', { 
-			failureRedirect: '/authlocal' }),
+			failureRedirect: '/' }),
 		function(req, res) {
     		res.redirect('/');
 		});
