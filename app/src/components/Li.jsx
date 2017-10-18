@@ -31,7 +31,7 @@ module.exports = React.createClass({
 			var li = this.props.data.map(function(anObjectMapped, index) {
 				color = colors1();
     			return(
-    				<li key={index} className={color}>
+    				<li key={index} className="list-group-item list-group-item-info">
     					<Input index={index} name={anObjectMapped.name} />
     				</li>
     				); 
